@@ -15,13 +15,16 @@ Then /(.*) seed movies should exist/ do | n_seeds |
   Movie.count.should be n_seeds.to_i
 end
 
+
+When /I follow ([^"]*)$/ do |link|
+  click_link(link)
+end
+
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 
-Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
-  #  ensure that that e1 occurs before e2.
-  #  page.body is the entire content of the page as a string.
-  fail "Unimplemented"
+Then /I should see "(.*)" before "(.*)"/ do |movie1, movie2|
+  expect(page.body.match(/.*#{movie1}.*#{movie2}.*/))
 end
 
 # Make it easier to express checking or unchecking several boxes at once
